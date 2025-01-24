@@ -1,0 +1,478 @@
+* {
+    box-sizing: none;
+
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Jomhuria&display=swap');
+
+html,
+
+
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#img-logo {
+    width: 300px;
+}
+
+.text-link {
+    font-size: 25px;
+}
+
+.li-nav {
+    /*width: 200px;*/
+
+}
+
+.navbar-nav {
+    width: 100%;
+}
+
+#navbarNav {
+    width: 80%;
+}
+
+.navbar {
+    width: 80%;
+}
+
+#container-conteudo {
+    width: 80%;
+}
+
+#container-conteudo>ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#footer>span {
+    text-align: center;
+    font-size: 25px;
+}
+
+#footer {
+    background-color: #DEBDC6;
+
+}
+
+.li-nav {
+    border-radius: 10px;
+    border: 3px solid #B7044A;
+
+}
+
+.item-list-agendamento {
+    border-radius: 10px;
+    border: 3px solid #B7044A;
+    background-color: #DEBDC6;
+    margin-bottom: 1%;
+}
+
+.subitem-agendamento {
+    margin: 5px;
+    font-size: 15px;
+    font-weight: 550;
+}
+
+.nav-link {
+    font-weight: 550;
+
+}
+
+#container-menu {
+    background-color: #DEBDC6;
+}
+
+#titulo {
+    margin-top: 45px;
+    font-size: 50px;
+    font-family: "Jomhuria", serif;
+}
+
+#container-main {
+    /* "../" serve para sair de uma pasta atual*/
+    /*background: url(../imgs/fundo-login.png);*/
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#container-principal {
+    background-color: rgba(255, 255, 255, 0.4);
+
+
+    display: flex;
+    /* Usa flexbox para ajustar o conteúdo */
+    flex-direction: column;
+    /* Organiza itens na vertical */
+    min-height: 100vh;
+    /* Define uma altura mínima para o contêiner */
+
+}
+
+/*estilo da pagina do page-cliente.html*/
+
+.input-text {
+    border-radius: 10px;
+    border: #B7044A 3px solid;
+    height: 45px;
+    background-color: #DEBDC6;
+    margin: 5px 0;
+
+}
+
+.input-text::placeholder {
+    color: black;
+}
+
+.form-control:focus {
+    background-color: whitesmoke;
+    border: #B7044A 3px solid;
+    box-shadow: 0 0 0 2px #debdc669 !important;
+
+
+}
+
+.btn-cadastro {
+    border-radius: 10px;
+    border: #DEBDC6 3px solid;
+    height: 40px;
+    background-color: #B7044A;
+
+
+}
+
+.btn-cadastro:hover {
+    background-color: #DEBDC6;
+    border: #B7044A 3px solid;
+    color: black;
+
+}
+
+.btn-cadastro:active {
+    background-color: #B7044A;
+    border: #DEBDC6 3px solid;
+
+}
+
+#table-head {
+    margin-top: 50px;
+}
+
+.th-item {
+
+    color: whitesmoke;
+    border: #B7044A 3px solid;
+    border-radius: 5px;
+    background-color: #b704499a;
+    text-align: center;
+
+}
+
+.container-thitem {
+    width: 22%;
+    text-align: center;
+} /*paramos aqui, precisa ajustar o style.css para dar compatibilidade com o agendamentoSemanal*/
+
+.table {
+    margin-top: 20px;
+
+}
+
+
+#tb-funcoes {
+    width: 10%;
+    text-align: center;
+    border-top: 0;
+}
+
+#icon-filter {
+    width: 10%;
+    text-align: center;
+    font-size: 20px;
+    line-height: 15px;
+    text-align: center;
+
+}
+
+.td-table {
+    width: 22%;
+    background-color: rgba(245, 245, 245, 0.4);
+    border: 3px black solid !important;
+}
+
+#btn-filtro {
+    color: whitesmoke;
+    border: #B7044A 3px solid;
+    border-radius: 5px;
+    background-color: #b704499a;
+
+}
+
+.table {
+    margin-bottom: 150px !important;
+}
+
+#btn-close-modal {
+    background-color: black !important;
+    color: whitesmoke !important;
+    border-radius: 50px;
+    padding: 1px 7px !important;
+
+
+}
+
+#x-close {
+    font-size: 15px;
+}
+
+.modal-content {
+    background-color: #DEBDC6;
+}
+
+#btn-filtrar {
+    background-color: rgba(169, 169, 169, 0.447);
+    border: 3px solid #B7044A;
+    border-radius: 7px;
+
+}
+
+#btn-filtrar:hover {
+    background-color: #B7044A;
+    color: whitesmoke;
+    border: whitesmoke 3px solid;
+}
+
+#btnExcluir {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+form {
+    display: inline;
+}
+#dropdownMenuButton{
+    border: solid 3px #B7044A ;
+    border-radius: 10px;
+    background-color: rgb(214, 211, 211);
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    min-width: 10rem;
+    padding: .5rem 0;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem;
+}
+
+.dropdown-menu .dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+}
+
+/* page-perfil */
+
+.profile-card {
+        height: 87%;
+    margin-bottom: 100px;
+    width: 250px;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: #edededa6;
+    border-radius: 10px;
+    box-shadow: 4px 4px 2px 0px rgba(209,209,209,1);
+}
+
+.profile-card .profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #DEBDC6;
+    border: #B7044A 3px solid;
+
+}
+
+.profile-card .name {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.settings-card{
+    width: 55%;
+    margin-bottom: 100px;
+    background-color: #edededa6;
+    border-radius: 10px;
+    box-shadow: 4px 4px 2px 0px rgba(209,209,209,1);
+    padding: 2%;
+    justify-content: center;
+}
+.settings-card h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.settings-card .settings-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-left: 10%;
+}
+
+.settings-card .settings-item .icon {
+    margin-right: 10px;
+}
+
+
+
+.settings-card .settings-item .edit-icon {
+    font-size: 16px;
+    color: #777;
+    cursor: pointer;
+}
+
+.button {
+    background-color: #DEBDC6;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #B7044A;
+    color: #fff;
+
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: center;
+    padding-left: 10%;
+}
+
+.header button {
+    background-color: #e9ecef;
+    color: #333;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.header button:hover {
+    background-color: #d1d5db;
+}
+
+.header .user-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.settings-item .icon {
+    font-size: 20px;
+}
+.container{
+    justify-content: center;
+    align-items: center;
+}
+
+i{
+    font-size: 25px;
+}
+
+.value > span{
+    font-size: 20px;
+}
+
+#btn-config-estilo{
+    background-color: #DEBDC6;
+    border-radius: 10px;
+    border: #B7044A 3px solid;
+}
+#circ-cor-primaria{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #DEBDC6;
+    border: #B7044A 3px solid;
+}
+#circ-cor-secundaria{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #B7044A;
+    margin-top: -100px;
+    margin-right: -80px;
+    margin-bottom: 5%;
+}
+
+/*estilo teste*/
+
+.value{
+    border: #B7044A 3px solid ;
+    border-radius: 10px;
+    margin: 1.5%;
+    padding: 1%;
+}
+
+#alert-container {
+    position: fixed;
+    top: 20px; /* Altere o valor conforme necessário para ajustar a distância do topo */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050; /* Valor de z-index alto para sobrepor outros elementos */
+    width: auto;
+    max-width: 90%; /* Limite a largura para evitar problemas em telas pequenas */
+
+    border-radius: 10px;
+}
+
+/* Animação para a borda piscante */
+@keyframes border-blink {
+    0% {
+        border: 3px solid black;
+    }
+    50% {
+        border: 3px solid transparent;
+    }
+    100% {
+        border: 3px solid black;
+    }
+}
+
+.alert {
+    margin: 0 auto; /* Centraliza o conteúdo do alerta */
+    text-align: center;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    animation: border-blink 1s infinite; /* Animação de borda piscante */
+}
