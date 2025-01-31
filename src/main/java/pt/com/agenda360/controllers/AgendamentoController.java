@@ -28,7 +28,7 @@ public class AgendamentoController {
     @GetMapping(value = "/agendamentos-do-dia")
     public String carregarAgendamentoDoDia(Model model){
         List<Agendamento> agendamentos = agendamentoService.getAgendamentosDoDia();
-        model.addAttribute("agendamento", agendamentos);
+        model.addAttribute("agendamentos", agendamentos);
         Usuario usuario = (Usuario) httpSession.getAttribute("usuarioLogado");
         Negocio negocio = negocioService.getNegocio(usuario.getNegocio().getId());
         model.addAttribute("nomeNegocio", negocio.getNome());

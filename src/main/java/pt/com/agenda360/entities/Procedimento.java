@@ -3,6 +3,8 @@ package pt.com.agenda360.entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalTime;
+
 @Document
 
 public class Procedimento {
@@ -12,7 +14,7 @@ public class Procedimento {
         @Id
         private String id;
         private String nome;
-        private double duracao;
+        private LocalTime duracao;
         private double valor;
         private Usuario usuario;
 
@@ -32,11 +34,11 @@ public class Procedimento {
                 this.nome = nome;
         }
 
-        public double getDuracao() {
+        public LocalTime getDuracao() {
                 return duracao;
         }
 
-        public void setDuracao(double duracao) {
+        public void setDuracao(LocalTime duracao) {
                 this.duracao = duracao;
         }
 
