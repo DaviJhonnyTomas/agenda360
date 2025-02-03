@@ -23,7 +23,7 @@ public class ClienteController {
     }
 
     @PostMapping(value = "/cadastrar-cliente")
-    public String cadastrarCliente(@RequestBody ClienteDTO clienteDto){
+    public String cadastrarCliente(ClienteDTO clienteDto){
         Cliente cliente = clienteDto.converterParaCliente();
         //clienteRepository.insert(cliente);
         return "redirect:/cadastrar-cliente";

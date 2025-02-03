@@ -3,16 +3,15 @@ package pt.com.agenda360.services;
 import org.springframework.stereotype.Service;
 import pt.com.agenda360.entities.Procedimento;
 
+import java.util.List;
+
 @Service
 public interface ProcedimentoService {
 
     void cadastrar(Procedimento procedimento);
 
-    //versionamento de código -> versões
 
-    // primeira vez que enviou pro github -> 1° versão
+    List<Procedimento> getProcedimentosByIdUsuario(String id);
 
-    //arquivos em verde -> foram criados (novos) em comparação com a ultima versão do github
-
-    // arquivos em azul -> foram alterados
+    Procedimento getById(String id);
 }

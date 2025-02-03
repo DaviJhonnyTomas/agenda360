@@ -184,14 +184,14 @@
                         </div>
                         <div class="icon" id="icon-filter">
 
-                            <button id="btn-filtro" data-toggle="modal" data-target="#ExemploModalCentralizado">
+                            <button id="btn-filtro" data-toggle="modal" data-target="#modalFiltrar">
                                 <i class="ph ph-sliders-horizontal"></i>
                             </button>
 
                         </div>
                     </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog"
+                    <!-- Modal filtrar -->
+                    <div class="modal fade" id="modalFiltrar" tabindex="-1" role="dialog"
                          aria-labelledby="TituloModalCentralizado" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -218,8 +218,8 @@
                             </div>
                         </div>
                     </div>
-                    <!--
-                    <div class="modal" id="modalErro" tabindex="-1" role="dialog">
+                    <!-- modal erro-->
+                    <div th:if="${erro}" class="modal" id="modalErro" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -237,10 +237,7 @@
                             </div>
                         </div>
 
-                        <%
-                        String modalParamErro = (String) request.getAttribute("modalErro");
-                        if (modalParamErro != null) {
-                        %>
+
                         <script>
 
                             $(document).ready(function () {
@@ -251,11 +248,9 @@
                             });
                         </script>
 
-                        <%
-                        }
-                        %>
+
                     </div>
--->
+
 
 
 
@@ -264,17 +259,17 @@
                         <tbody>
 
                             <tr th:each="procedimento : ${procedimentos}">
-                                <td class="td-table">
-                                    ${procedimento.nome}
+                                <td class="td-table" th:text="${procedimento.nome}">
+
                                 </td>
-                                <td class="td-table">
-                                    ${procedimento.duracao} hrs
+                                <td class="td-table" th:text="${procedimento.duracao}">
+
                                 </td>
-                                <td class="td-table">
-                                    ${procedimento.valor} €
+                                <td class="td-table" th:text="${procedimento.valor}">
+
                                 </td>
                                 <td id="tb-funcoes">
-                                    <a th:href="@{'/editar-procedimento?id=' + ${procedimento.id} + '&nome=' + ${procedimento.nome} + '&valor=' + ${procedimento.valor} + '&duracao=' + ${procedimento.duracao} + '&idUsuario=' + ${procedimento.idUsuario}}"><i class="ph ph-pencil"></i></a> <!-- ao clicar neste botão, o id chegará no método doGet (EditarProcedimento) -->
+                                    <a th:href="@{'/editar-procedimento?id=' + ${procedimento.id}}"><i class="ph ph-pencil"></i></a> <!-- ao clicar neste botão, o id chegará no método doGet (EditarProcedimento) -->
 
 
                                 </td>
@@ -283,8 +278,8 @@
                         </tbody>
                     </table>
 
-                    <!--
-                    <div class="modal fade" id="modalEditarProcedimento" tabindex="-1" role="dialog"
+                    <!-- modal editar -->
+                    <div th:if="${editarProcedimento}" class="modal fade" id="modalEditarProcedimento" tabindex="-1" role="dialog"
                          aria-labelledby="TituloModalCentralizado" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -298,19 +293,19 @@
                                 <div class="modal-body">
                                     <form action="editar-procedimento" method="post">
                                         <div class="form-group">
-                                            <input name="id" type="text" class="form-control input-text" id="input-nome" placeholder="Nome" value="${procedimento.id}" hidden="true" >
+                                            <input name="id" type="text" class="form-control input-text" id="input-nome" placeholder="Nome" th:value="${procedimento.id}" hidden="true" >
                                         </div>
                                         <div class="form-group">
 
-                                            <input name="nome" type="text" class="form-control input-text" id="input-nome" placeholder="Nome" value="${procedimento.nome}">
+                                            <input name="nome" type="text" class="form-control input-text" id="input-nome" placeholder="Nome" th:value="${procedimento.nome}">
 
                                         </div>
                                         <div class="form-group">
 
-                                            <input name="valor" type="text" class="form-control input-text" id="input-valor" placeholder="Valor" value="${procedimento.valor}">
+                                            <input name="valor" type="number" class="form-control input-text" id="input-valor" placeholder="Valor" th:value="${procedimento.valor}">
                                         </div>
                                         <div class="form-group ">
-                                            <input name="duracao" type="text" class="form-control input-text" id="input-duracao" placeholder="Duração" value="${procedimento.duracao}">
+                                            <input name="duracao" type="time" class="form-control input-text" id="input-duracao" placeholder="Duração" th:value="${procedimento.duracao}">
 
                                         </div>
                                         <input type="submit" class="btn-cadastro" value="editar">
@@ -323,23 +318,25 @@
                             </div>
                         </div>
                     </div>
-                    <%
-                    String modalParam = (String) request.getAttribute("modal");
-                    if ("modalEditarProcedimento".equals(modalParam)) {
-                    %>
-                    <script>
+
+                    <script th:if="${editarProcedimento}">
 
                         $(document).ready(function () {
-                            $('#modalEditarProcedimento').modal('show');
+                            var modal = $('#modalEditarProcedimento');
+                            modal.modal('show')
 
+                            document.getElementById("btn-close-modal").addEventListener("click, function() {
+                                window.location.href = "/cadastrar-procedimento";
+                            });
+
+                            modal._element.addEventListener("hidden.bs.modal"), function () {
+                                window.location.href = "/cadastrar-procedimento";
+                            });
 
                         });
                     </script>
-                    <%
-                    }
-                    %>
+
                 </div>
-                -->
 
             </div>
         </div>

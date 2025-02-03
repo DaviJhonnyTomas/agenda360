@@ -7,6 +7,9 @@ import pt.com.agenda360.entities.Procedimento;
 import pt.com.agenda360.entities.Usuario;
 import pt.com.agenda360.repositories.ProcedimentoRepository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ProcedimentoServiceImpl implements ProcedimentoService {
 
@@ -26,5 +29,23 @@ public class ProcedimentoServiceImpl implements ProcedimentoService {
 
         procedimento.setUsuario(usuario);
         procedimentoRepository.insert(procedimento);
+    }
+
+    @Override
+    public List<Procedimento> getProcedimentosByIdUsuario(String id) {
+        return procedimentoRepository.findAllByUsuario_id(id);
+    }
+
+    @Override
+    public Procedimento getById(String id) {
+        Optional<Procedimento> procedimentoOptional = procedimentoRepository.findById(id);
+
+        if(procedimentoOptional.isPresent()){
+            Procedimento procedimento = procedimentoOptional.get();
+
+            return procedimento;
+        }else{
+            throw new RuntimeException("Procedimento não encontrado.");
+        }
     }
 }
