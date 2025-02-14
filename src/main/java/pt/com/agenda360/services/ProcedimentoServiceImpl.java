@@ -48,4 +48,15 @@ public class ProcedimentoServiceImpl implements ProcedimentoService {
             throw new RuntimeException("Procedimento não encontrado.");
         }
     }
+
+    @Override
+    public void editar(Procedimento procedimento) {
+        Usuario usuarioLogado = (Usuario) httpSession.getAttribute("usuarioLogado");
+
+        Usuario usuario = new Usuario();
+        usuario.setId(usuarioLogado.getId());
+
+        procedimento.setUsuario(usuario);
+        procedimentoRepository.save(procedimento);
+    }
 }

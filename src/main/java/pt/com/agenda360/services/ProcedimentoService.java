@@ -14,4 +14,6 @@ public interface ProcedimentoService {
     List<Procedimento> getProcedimentosByIdUsuario(String id);
 
     Procedimento getById(String id);
+
+    void editar(Procedimento procedimento);
 }

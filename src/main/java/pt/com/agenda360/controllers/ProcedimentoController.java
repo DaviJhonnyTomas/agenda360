@@ -31,8 +31,7 @@ public class ProcedimentoController {
     @GetMapping(value = "/cadastrar-procedimento")
     public String carregarPaginaCadastro(Model model){
         Usuario usuario = (Usuario) httpSession.getAttribute("usuarioLogado");
-        Negocio negocio = negocioService.getNegocio(usuario.getNegocio().getId());
-        model.addAttribute("nomeNegocio", negocio.getNome());
+
         List<Procedimento> procedimentos = procedimentoService.getProcedimentosByIdUsuario(usuario.getId());
         model.addAttribute("procedimentos", procedimentos);
         return "page-procedimentos";
@@ -46,10 +45,16 @@ public class ProcedimentoController {
     }
 
     @GetMapping(value = "/editar-procedimento")
-    public String carregarEditarProcedimento(@RequestParam String id, Model model){
-        Procedimento procedimento = procedimentoService.getById(id);
-        model.addAttribute("procedimento", procedimento);
-        model.addAttribute("editarProcedimento", "editar");
-        return "page-procedimentos";
+    public String carregarEditarProcedimento(@RequestParam String id, Model model){ //abrir a modal
+        Procedimento procedimento = procedimentoService.getById(id); //busca os dados no banco para serem editados
+        model.addAttribute("procedimento", procedimento); //seta o atributo procedimento com os dados para serem editados -> esse atributo irá acionar a modal
+
+        return "page-procedimentos"; // recarrega a pagina
+    }
+
+    @PostMapping(value = "/editar-procedimento")
+    public String editarProcedimento(Procedimento procedimento){
+        procedimentoService.editar(procedimento);
+        return "redirect:/cadastrar-procedimento";
     }
 }

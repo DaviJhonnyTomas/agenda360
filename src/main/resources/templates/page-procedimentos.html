@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${nomeNegocio}"></title>
+    <title>Agenda360</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -70,6 +70,23 @@
             background-color: whitesmoke;
             animation: border-blink 1s infinite; /* Animação de borda piscante */
         }
+        .form-group {
+                                            position: relative;
+                                            margin-bottom: 20px;
+                                        }
+
+                                        .form-group label {
+                                            position: absolute;
+                                            top: -10px;
+                                            left: 10px;
+                                            background: #DEBDC6;
+                                            padding: 0 5px;
+                                            font-size: 12px;
+                                            color: #000000;
+                                            border-radius: 10px;
+                                        }
+
+
 
 
     </style>
@@ -82,9 +99,9 @@
 
 <div th:if="${erro != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
     <span th:text="${erro}"></span>
-<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
 
 
@@ -104,13 +121,13 @@
         <div class="  " id="navbarNav">
             <ul class="navbar-nav d-flex justify-content-around">
                 <li class="nav-item li-nav">
-                    <a class="nav-link text-link text-dark" th:href="@{/cadastrar-cliente}">Cliente</a>
+                    <a class="nav-link text-link text-dark" th:href="@{/cadastrar-cliente}">Clientes</a>
                 </li>
                 <li class="nav-item li-nav">
                     <a class="nav-link text-link text-dark" th:href="@{/cadastrar-procedimento}">Serviços</a>
                 </li>
                 <li class="nav-item li-nav">
-                    <a class="nav-link text-link text-dark" th:href="@{/cadastrar-agendamento}">Agendamento</a>
+                    <a class="nav-link text-link text-dark" th:href="@{/cadastrar-agendamento}">Agendamentos</a>
                 </li>
                 <li class="nav-item li-nav">
                     <a class="nav-link text-link text-dark" th:href="@{/gerenciamento-negocio}">Meu negócio</a>
@@ -258,82 +275,94 @@
 
                         <tbody>
 
-                            <tr th:each="procedimento : ${procedimentos}">
-                                <td class="td-table" th:text="${procedimento.nome}">
+                        <tr th:each="procedimento : ${procedimentos}">
+                            <td class="td-table" th:text="${procedimento.nome}">
 
-                                </td>
-                                <td class="td-table" th:text="${procedimento.duracao}">
+                            </td>
+                            <td class="td-table" th:text="${procedimento.duracao}">
 
-                                </td>
-                                <td class="td-table" th:text="${procedimento.valor}">
+                            </td>
+                            <td class="td-table" th:text="${procedimento.valor}">
 
-                                </td>
-                                <td id="tb-funcoes">
-                                    <a th:href="@{'/editar-procedimento?id=' + ${procedimento.id}}"><i class="ph ph-pencil"></i></a> <!-- ao clicar neste botão, o id chegará no método doGet (EditarProcedimento) -->
+                            </td>
+                            <td id="tb-funcoes">
+                                <a th:href="@{'/editar-procedimento?id=' + ${procedimento.id}}"><i class="ph ph-pencil"></i></a> <!-- ao clicar neste botão, o id chegará no método doGet (EditarProcedimento) -->
 
 
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
 
                         </tbody>
                     </table>
+                    
+                    <script th:if="${procedimento != null}">
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var modal = new bootstrap.Modal(document.getElementById('modalEditarProcedimento'));
+                            modal.show();
+
+
+                        });
+
+
+                    </script>
 
                     <!-- modal editar -->
-                    <div th:if="${editarProcedimento}" class="modal fade" id="modalEditarProcedimento" tabindex="-1" role="dialog"
+                    <div th:if="${procedimento != null}" class="modal fade" id="modalEditarProcedimento" tabindex="-1" role="dialog"
                          aria-labelledby="TituloModalCentralizado" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="TituloModalCentralizado">Editar</h5>
-                                    <button id="btn-close-modal" type="button" data-dismiss="modal"
-                                            aria-label="Fechar">
-                                        <span id="x-close" aria-hidden="true">&times;</span>
-                                    </button>
+
+
                                 </div>
                                 <div class="modal-body">
                                     <form action="editar-procedimento" method="post">
                                         <div class="form-group">
-                                            <input name="id" type="text" class="form-control input-text" id="input-nome" placeholder="Nome" th:value="${procedimento.id}" hidden="true" >
+                                            <input name="id" type="text" class="form-control input-text" id="input-id" th:value="${procedimento.id}" hidden="true">
                                         </div>
+
                                         <div class="form-group">
-
-                                            <input name="nome" type="text" class="form-control input-text" id="input-nome" placeholder="Nome" th:value="${procedimento.nome}">
-
+                                            <label for="input-nome">Nome</label>
+                                            <input name="nome" type="text" class="form-control input-text" id="input-nome" placeholder="Digite o nome" th:value="${procedimento.nome}">
                                         </div>
-                                        <div class="form-group">
 
+                                        <div class="form-group">
+                                            <label for="input-duracao">Duração</label>
+                                            <input name="duracao" type="time" class="form-control input-text" id="input-duracao" placeholder="Duração" th:value="${procedimento.duracao}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="input-valor">Valor</label>
                                             <input name="valor" type="number" class="form-control input-text" id="input-valor" placeholder="Valor" th:value="${procedimento.valor}">
                                         </div>
-                                        <div class="form-group ">
-                                            <input name="duracao" type="time" class="form-control input-text" id="input-duracao" placeholder="Duração" th:value="${procedimento.duracao}">
 
-                                        </div>
-                                        <input type="submit" class="btn-cadastro" value="editar">
-
-
-
+                                        <input type="submit" class="btn-cadastro" value="Editar/Fechar">
                                     </form>
+
+
+
                                 </div>
 
                             </div>
                         </div>
                     </div>
 
-                    <script th:if="${editarProcedimento}">
+                    <script th:if="${procedimento != null}">
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var modal = new bootstrap.Modal(document.getElementById('modalEditarProcedimento'));
+                            modal.show();
 
-                        $(document).ready(function () {
-                            var modal = $('#modalEditarProcedimento');
-                            modal.modal('show')
-
-                            document.getElementById("btn-close-modal").addEventListener("click, function() {
+                            document.getElementById("btn-close-modal").addEventListener("click", function() {
                                 window.location.href = "/cadastrar-procedimento";
                             });
 
-                            modal._element.addEventListener("hidden.bs.modal"), function () {
+                            modal._element.addEventListener("hidden.bs.modal", function () {
                                 window.location.href = "/cadastrar-procedimento";
                             });
-
                         });
+
+
                     </script>
 
                 </div>

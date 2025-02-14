@@ -29,9 +29,7 @@ public class AgendamentoController {
     public String carregarAgendamentoDoDia(Model model){
         List<Agendamento> agendamentos = agendamentoService.getAgendamentosDoDia();
         model.addAttribute("agendamentos", agendamentos);
-        Usuario usuario = (Usuario) httpSession.getAttribute("usuarioLogado");
-        Negocio negocio = negocioService.getNegocio(usuario.getNegocio().getId());
-        model.addAttribute("nomeNegocio", negocio.getNome());
+
         return "page-agendamentos-do-dia";
     }
 }

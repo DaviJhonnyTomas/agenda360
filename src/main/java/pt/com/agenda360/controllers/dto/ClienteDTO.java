@@ -13,11 +13,7 @@ public class ClienteDTO {
      private String nome;
      private String telefone;
      private String email;
-     private String nomeUsuario;
-    private String senha;
-    private String emailUsuario;
-    private String telefoneUsuario;
-    private String endereco;
+
 
 
     //fazer construtores e método de conversão de DTO para Entidade Cliente
@@ -25,16 +21,10 @@ public class ClienteDTO {
     public ClienteDTO() {
     }
 
-    public ClienteDTO(String nome, String telefone, String email, String nomeUsuario, String login, String senha,
-                      int nif, String emailUsuario, String telefoneUsuario, String endereco) {
+    public ClienteDTO(String nome, String telefone, String email) {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
-        this.nomeUsuario = nomeUsuario;
-        this.senha = senha;
-        this.emailUsuario = emailUsuario;
-        this.telefoneUsuario = telefoneUsuario;
-        this.endereco = endereco;
 
     }
 
@@ -44,14 +34,6 @@ public class ClienteDTO {
         cliente.setTelefone(this.telefone);
         cliente.setEmail(this.email);
 
-        Usuario usuario = new Usuario();
-        usuario.setNome(this.nomeUsuario);
-        usuario.setSenha(this.senha);
-        usuario.setEmail(this.emailUsuario);
-        usuario.setTelefone(this.telefoneUsuario);
-        usuario.setEndereco(this.endereco);
-
-        cliente.setUsuario(usuario);
         return cliente;
     }
 
@@ -76,38 +58,7 @@ public class ClienteDTO {
          this.email = email;
      }
 
-     public String getNomeUsuario() {
-         return nomeUsuario;
-     }
-     public void setNomeUsuario(String nomeUsuario) {
-         this.nomeUsuario = nomeUsuario;
-     }
 
-     public String getSenha() {
-         return senha;
-     }
-     public void setSenha(String senha) {
-         this.senha = senha;
-     }
-
-     public String getEmailUsuario() {
-         return emailUsuario;
-     }
-     public void setEmailUsuario(String emailUsuario) {
-         this.emailUsuario = emailUsuario;
-     }
-     public String getTelefoneUsuario() {
-         return telefoneUsuario;
-     }
-     public void setTelefoneUsuario(String telefoneUsuario) {
-         this.telefoneUsuario = telefoneUsuario;
-     }
-     public String getEndereco() {
-         return endereco;
-     }
-     public void setEndereco(String endereco) {
-         this.endereco = endereco;
-     }
 
 
 
