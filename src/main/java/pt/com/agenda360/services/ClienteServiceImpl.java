@@ -43,10 +43,6 @@ public class ClienteServiceImpl implements ClienteService {
         return List.of();
     }
 
-    @Override
-    public void remover(String id) {
-
-    }
 
     @Override
     public void atualizar(Cliente cliente) {
@@ -62,7 +58,8 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente getById(String id) {
-        return null;
+        return clienteRepository.findById(id).orElse(null);
+
     }
 
     @Override
@@ -82,4 +79,10 @@ public class ClienteServiceImpl implements ClienteService {
     public List<Cliente> getAll() {
         return clienteRepository.findAll();
     }
+    @Override
+    public void excluir(String id) {
+        clienteRepository.deleteById(id);
+    }
+
+
 }

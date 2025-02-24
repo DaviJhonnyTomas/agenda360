@@ -58,6 +58,7 @@ public class ClienteController {
     @GetMapping(value = "/editar-cliente")
     public String carregarEditarCliente(@RequestParam String id, Model model){
         Cliente cliente = clienteService.getById(id);
+        System.out.println("Cliente: " + cliente.getId() + "\n " + cliente.getNome());
         model.addAttribute("cliente", cliente);
         List<Cliente> clientes = clienteService.getAll();
         model.addAttribute("clientes", clientes);
@@ -69,6 +70,15 @@ public class ClienteController {
         clienteService.editar(cliente);
         return "redirect:/cadastrar-cliente"; //quando usamos redirect no return, sempre devemos informar uma rota após a "/"
     }
-
+    @GetMapping(value = "excluir-cliente")
+    public String carregarConfirmacaoExcluir(@RequestParam String id, Model model){
+        model.addAttribute("idClienteConfirmacao", id);
+        return "page-cliente";
+    }
+    @PostMapping(value = "excluir-cliente")
+    public String excluirCliente(String id){
+        clienteService.excluir(id);
+        return "redirect:/cadastrar-cliente";
+    }
 
 }

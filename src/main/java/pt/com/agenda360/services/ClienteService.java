@@ -15,8 +15,6 @@ public interface ClienteService {
 
     public List<Cliente> buscarTodos();
 
-    public void remover(String id);
-
     public void atualizar(Cliente cliente);
 
     List<Cliente> getClientesByIdUsuario(String idUsuarioLogado);
@@ -28,4 +26,6 @@ public interface ClienteService {
 
 
     List<Cliente> getAll();
+
+    void excluir(String id);
 }

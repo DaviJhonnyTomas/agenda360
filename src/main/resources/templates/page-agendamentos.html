@@ -21,72 +21,96 @@
 
     <link rel="stylesheet" href="/css/style.css">
     <style>
-        .col-md-11 {
-            max-width: 90%;
-
-        }
-
-        #tb-funcoes {
-            width: 8%;
-        }
-
-        .container-thitem {
-            width: 28.6%;
-            text-align: center;
-        }
-        .item-procedimento{
-
-        }
-
-        #alert-container {
-            position: fixed;
-            top: 20px; /* Altere o valor conforme necessário para ajustar a distância do topo */
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1050; /* Valor de z-index alto para sobrepor outros elementos */
-            width: auto;
-            max-width: 90%; /* Limite a largura para evitar problemas em telas pequenas */
-
-            border-radius: 10px;
-        }
-
-        /* Animação para a borda piscante */
-        @keyframes border-blink {
-            0% {
-                border: 3px solid black;
+        .col-md-11{
+                max-width: 89%;
+                margin-right: 1%;
             }
-            50% {
-                border: 3px solid transparent;
+            #dropdownButtonProcedimentos{
+                width: 100%;
+                text-align: start;
+                background-color: #DEBDC6;
+                border-radius: 10px;
+                border: 3px solid #B7044A;
+                color: #555;
+                position: relative;
             }
-            100% {
-                border: 3px solid black;
+            #dropdownButtonProcedimentos::after{
+                position: absolute;
+                right: 10px; /* Ajuste este valor conforme necessário */
+                top: 17px;
+                color: black;
+                pointer-events: none; /* Garante que o ícone não interfira nos cliques do botão */
+
+
             }
-        }
+            #dropdownButtonProcedimentosEditar{
+                width: 100%;
+                text-align: start;
+                background-color: #DEBDC6;
+                border-radius: 10px;
+                border: 3px solid #B7044A;
+                color: #555;
+            }
+            #dropdownButtonProcedimentosEditar::after{
+                margin-left: 765px;
+                color: black;
+            }
+            #dropdownMenuProcedimentos{
+                width: 100%;
+            }
+            .item-procedimento{
+                margin-left: 10px;
+            }
+            #seletor-procedimento{
+                width: 100%;
+                border-radius: 10px;
+                border: #B7044A solid 3px;
+                background-color: #DEBDC6;
+            }
+            #alert-container {
+                position: fixed;
+                top: 20px; /* Altere o valor conforme necessário para ajustar a distância do topo */
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1050; /* Valor de z-index alto para sobrepor outros elementos */
+                width: auto;
+                max-width: 90%; /* Limite a largura para evitar problemas em telas pequenas */
 
-        .alert {
-            margin: 0 auto; /* Centraliza o conteúdo do alerta */
-            text-align: center;
-            border-radius: 10px;
-            background-color: whitesmoke;
-            animation: border-blink 1s infinite; /* Animação de borda piscante */
-        }
-        .form-group {
-                                            position: relative;
-                                            margin-bottom: 20px;
-                                        }
+                border-radius: 10px;
+            }
 
-                                        .form-group label {
-                                            position: absolute;
-                                            top: -10px;
-                                            left: 10px;
-                                            background: #DEBDC6;
-                                            padding: 0 5px;
-                                            font-size: 12px;
-                                            color: #000000;
-                                            border-radius: 10px;
-                                        }
+            /* Animação para a borda piscante */
+            @keyframes border-blink {
+                0% {
+                    border: 3px solid black;
+                }
+                50% {
+                    border: 3px solid transparent;
+                }
+                100% {
+                    border: 3px solid black;
+                }
+            }
 
+            .alert {
+                margin: 0 auto; /* Centraliza o conteúdo do alerta */
+                text-align: center;
+                border-radius: 10px;
+                background-color: whitesmoke;
+                animation: border-blink 1s infinite; /* Animação de borda piscante */
+            }
 
+            #confirmacao-excluir-container {
+                position: fixed;
+                top: 20px; /* Altere o valor conforme necessário para ajustar a distância do topo */
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1050; /* Valor de z-index alto para sobrepor outros elementos */
+                width: auto;
+                max-width: 90%; /* Limite a largura para evitar problemas em telas pequenas */
+
+                border-radius: 10px;
+            }
 
 
     </style>
@@ -104,7 +128,7 @@
     </button>
 </div>
 
-<div th:if="${idClienteConfirmacao != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+<div th:if="${idAgendamentoConfirmacao != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
     <span>Você realmente deseja excluir?</span>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -114,12 +138,12 @@
         <button>Não</button>
     </div>
 </div>
-<form id="form-excluir" action="/excluir-cliente" method="POST" hidden>
-    <input name="id" th:value="${idClienteConfirmacao}">
+<form id="form-excluir" action="/excluir-agendamento" method="POST" hidden>
+    <input name="id" th:value="${idAgendamentoConfirmacao}">
 
 </form>
 
-<script th:if="${idClienteConfirmacao != null}">
+<script th:if="${idAgendamentoConfirmacao != null}">
     var alertSound = document.getElementById("alert-sound");
             try {
                 alertSound.play();
@@ -185,20 +209,64 @@
 <div id="container-main">
     <div id="container-principal">
         <div class="mx-auto" id="container-conteudo">
-            <h2 id="titulo">Cadastro de clientes</h2>
-            <form action="/cadastrar-cliente" method="post">
-                <div class="form-group">
+            <h2 id="titulo">Cadastro de Agendamentos</h2>
+            <form action="cadastrar-agendamento" method="post">
+                <div class="input-group mb-3">
 
-                    <input name="nome" type="text" class="form-control input-text" id="input-nome" placeholder="Nome">
-
+                    <select name="idCliente" class="form-control input-text custom-select" id="inputGroupSelect01">
+                        <option value="0" selected>Escolher cliente</option>
+                            <option th:each="cliente : ${clientes}" value="${cliente.id}" th:text="${cliente.nome}"></option>
+                    </select>
                 </div>
-                <div class="form-group">
 
-                    <input name="telefone" type="text" class="form-control input-text" id="input-telefone" placeholder="Telefone">
+                <div class="input-group mb-3 form-group">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownButtonProcedimentos"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Selecione os serviços
+                    </button>
+
+                    <div class="dropdown-menu" id="dropdownMenuProcedimentos" aria-labelledby="dropdownMenuButton">
+                        <c:forEach var="procedimento" items="${procedimentos}" varStatus="i">
+                            <div th:each="procedimento : ${procedimentos}" class="item-procedimento">
+                                <input type="checkbox" th:value="${procedimento.id}"
+                                       name="idProcedimento${i.index}"
+                                       id="procedimento${i.index}"
+                                       data-name="${procedimento.nome}"
+                                       class="procedimento-checkbox">
+                                <label for="procedimento${i.index}" th:text="${procedimento.nome}"></label>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const dropdownButton = document.getElementById("dropdownButtonProcedimentos");
+                        const checkboxes = document.querySelectorAll(".procedimento-checkbox");
+
+                        // Função para atualizar o texto do botão com os serviços selecionados
+                        function updateSelectedProcedures() {
+                            const selectedProcedures = Array.from(checkboxes)
+                                    .filter(checkbox => checkbox.checked)
+                                    .map(checkbox => checkbox.getAttribute("data-name"));
+
+                            dropdownButton.textContent = selectedProcedures.length > 0 ? selectedProcedures.join(" | ") : "Selecione os serviços";
+                        }
+
+                        // Adiciona evento para cada checkbox
+                        checkboxes.forEach(checkbox => {
+                            checkbox.addEventListener("change", updateSelectedProcedures);
+                        });
+                    });
+                </script>
+
+
+                <div class="form-group ">
+                    <input name="data" type="date" class="form-control input-text" id="input-data" placeholder="Data">
+
                 </div>
                 <div class="form-group ">
-
-                    <input name="email" type="text" class="form-control input-text" id="input-email" placeholder="E-mail">
+                    <input name="hora" type="time" class="form-control input-text" id="input-hora" placeholder="Hora">
 
                 </div>
                 <button type="submit" class="btn-cadastro">Cadastrar</button>
