@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface AgendamentoRepository extends MongoRepository<Agendamento, String> {
     List<Agendamento> findAllByDataAndUsuario_id(LocalDate data, String id);
+
+    List<Agendamento> findAllByUsuario_id(String id);
 }

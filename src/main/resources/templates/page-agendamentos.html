@@ -226,16 +226,16 @@
                     </button>
 
                     <div class="dropdown-menu" id="dropdownMenuProcedimentos" aria-labelledby="dropdownMenuButton">
-                        <c:forEach var="procedimento" items="${procedimentos}" varStatus="i">
-                            <div th:each="procedimento : ${procedimentos}" class="item-procedimento">
+
+                            <div th:name="idsProcedimentos" th:each="procedimento, stat : ${procedimentos}" class="item-procedimento">
                                 <input type="checkbox" th:value="${procedimento.id}"
-                                       name="idProcedimento${i.index}"
-                                       id="procedimento${i.index}"
-                                       data-name="${procedimento.nome}"
+                                       th:name="'idProcedimento'+${stat.index}"
+                                       th:id="'procedimento'+${stat.index}"
+                                       th:data-name="${procedimento.nome}"
                                        class="procedimento-checkbox">
-                                <label for="procedimento${i.index}" th:text="${procedimento.nome}"></label>
+                                <label th:for="'procedimento'+${stat.index}" th:text="${procedimento.nome}"></label>
                             </div>
-                        </c:forEach>
+
                     </div>
                 </div>
 
@@ -284,18 +284,23 @@
                     <div id="table-head" class="d-flex justify-content-around">
                         <div class="container-thitem">
                                     <span class="th-item">
-                                        Nome
+                                        Cliente
                                     </span>
                         </div>
                         <div class="container-thitem">
                                     <span class="th-item">
-                                        Telefone
+                                        Serviços
 
                                     </span>
                         </div>
                         <div class="container-thitem">
                                     <span class="th-item">
-                                        E-mail
+                                        Data
+                                    </span>
+                        </div>
+                        <div class="container-thitem">
+                                    <span class="th-item">
+                                        Horário
                                     </span>
                         </div>
                         <div class="icon" id="icon-filter">
@@ -318,10 +323,11 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="filtrar-cliente" method="GET">
+                                    <form action="filtrar-agendamento" method="GET">
 
-                                        <input name="cliente" id="input-filtrar" class="form-control" type="text"
-                                               placeholder="Digite o nome do cliente">
+                                        <input id="input-filtrar" class="form-control mb-3" type="text" placeholder="Digite o nome do cliente" name="cliente">
+                                        <input type="date" class="form-control mb-3" placeholder="Selecione a data desejada" name="data">
+
                                         <div class="modal-footer d-flex justify-content-center">
 
                                             <button id="btn-filtrar" type="submit" class="btn">Filtrar pelo
@@ -364,19 +370,27 @@
 
                         <tbody>
 
-                        <tr th:each="cliente : ${clientes}">
-                            <td class="td-table" th:text="${cliente.nome}">
+                        <tr th:each="agendamento : ${agendamentos}">
+                            <td class="td-table" th:text="${agendamento.cliente.nome}">
 
                             </td>
-                            <td class="td-table" th:text="${cliente.telefone}">
+                            <td class="td-table">
+                                <ul>
+
+                                    <li th:each="procedimento : ${procedimentos}" th:text="${procedimento.nome}"> </li>
+
+                                </ul>
 
                             </td>
-                            <td class="td-table" th:text="${cliente.email}">
+                            <td class="td-table" th:text="${agendamento.data}">
+
+                            </td>
+                            <td class="td-table" th:text="${agendamento.hora}">
 
                             </td>
                             <td id="tb-funcoes">
-                                <a th:href="@{'/editar-cliente?id=' + ${cliente.id}}"><i class="ph ph-pencil"></i></a> <!-- ao clicar neste botão, o id chegará no método doGet (EditarProcedimento) -->
-                                <a th:href="@{'/excluir-cliente?id=' + ${cliente.id}}"><i class="ph ph-trash"></i></a>
+                                <a th:href="@{'/editar-agendamento?id=' + ${agendamento.id}}"><i class="ph ph-pencil"></i></a> <!-- ao clicar neste botão, o id chegará no método doGet (EditarProcedimento) -->
+                                <a th:href="@{'/excluir-agendamento?id=' + ${agendamento.id}}"><i class="ph ph-trash"></i></a>
 
                             </td>
                         </tr>
@@ -384,7 +398,7 @@
                         </tbody>
                     </table>
 
-                    <script th:if="${cliente != null}">
+                    <script th:if="${agendamento != null}">
                         document.addEventListener("DOMContentLoaded", function () {
                             var modal = new bootstrap.Modal(document.getElementById('modalEditarCliente'));
                             modal.show();
@@ -396,7 +410,7 @@
                     </script>
 
                     <!-- modal editar -->
-                    <div th:if="${cliente != null}" class="modal fade" id="modalEditarCliente" tabindex="-1" role="dialog"
+                    <div th:if="${agendamento != null}" class="modal fade" id="modalEditarAgendamento" tabindex="-1" role="dialog"
                          aria-labelledby="TituloModalCentralizado" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -406,24 +420,65 @@
 
                                 </div>
                                 <div class="modal-body">
-                                    <form action="editar-cliente" method="post">
-                                        <div class="form-group">
-                                            <input name="id" type="text" class="form-control input-text" id="input-id" th:value="${cliente.id}" hidden="true">
+                                    <form action="editar-agendamento" method="post">
+
+                                        <div class="input-group mb-3">
+
+                                            <select name="idCliente" class="form-control input-text custom-select" id="inputGroupSelect01">
+                                                <option value="0" selected>Escolher cliente</option>
+                                                <option th:each="cliente : ${clientes}" value="${cliente.id}" th:text="${cliente.nome}"></option>
+                                            </select>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="input-nome">Nome</label>
-                                            <input name="nome" type="text" class="form-control input-text" id="input-nome" placeholder="Digite o nome" th:value="${cliente.nome}">
+                                        <div class="input-group mb-3 form-group">
+                                            <button class="btn dropdown-toggle" type="button" id="dropdownButtonProcedimentos"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Selecione os serviços
+                                            </button>
+
+                                            <div class="dropdown-menu" id="dropdownMenuProcedimentos" aria-labelledby="dropdownMenuButton">
+
+                                                <div th:each="procedimento, stat : ${procedimentos}" class="item-procedimento">
+                                                    <input type="checkbox" th:value="${procedimento.id}"
+                                                           th:name="'idProcedimento'+${stat.index}"
+                                                           th:id="'procedimento'+${stat.index}"
+                                                           th:data-name="${procedimento.nome}"
+                                                           class="procedimento-checkbox">
+                                                    <label th:for="'procedimento'+${stat.index}" th:text="${procedimento.nome}"></label>
+                                                </div>
+
+                                            </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="input-telefone">Telefone</label>
-                                            <input name="telefone" type="text" class="form-control input-text" id="input-telefone" placeholder="Telefone" th:value="${cliente.telefone}">
-                                        </div>
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function () {
+                                                const dropdownButton = document.getElementById("dropdownButtonProcedimentos");
+                                                const checkboxes = document.querySelectorAll(".procedimento-checkbox");
 
-                                        <div class="form-group">
-                                            <label for="input-email">Email</label>
-                                            <input name="email" type="text" class="form-control input-text" id="input-email" placeholder="Email" th:value="${cliente.email}">
+                                                // Função para atualizar o texto do botão com os serviços selecionados
+                                                function updateSelectedProcedures() {
+                                                    const selectedProcedures = Array.from(checkboxes)
+                                                            .filter(checkbox => checkbox.checked)
+                                                            .map(checkbox => checkbox.getAttribute("data-name"));
+
+                                                    dropdownButton.textContent = selectedProcedures.length > 0 ? selectedProcedures.join(" | ") : "Selecione os serviços";
+                                                }
+
+                                                // Adiciona evento para cada checkbox
+                                                checkboxes.forEach(checkbox => {
+                                                    checkbox.addEventListener("change", updateSelectedProcedures);
+                                                });
+                                            });
+                                        </script>
+
+
+                                        <div class="form-group ">
+                                            <input name="data" type="date" class="form-control input-text" id="input-data" placeholder="Data">
+
+                                        </div>
+                                        <div class="form-group ">
+                                            <input name="hora" type="time" class="form-control input-text" id="input-hora" placeholder="Hora">
+
                                         </div>
 
                                         <input type="submit" class="btn-cadastro" value="Editar/Fechar">
@@ -437,17 +492,17 @@
                         </div>
                     </div>
 
-                    <script th:if="${cliente != null}">
+                    <script th:if="${agendamento != null}">
                         document.addEventListener("DOMContentLoaded", function () {
-                            var modal = new bootstrap.Modal(document.getElementById('modalEditarCliente'));
+                            var modal = new bootstrap.Modal(document.getElementById('modalEditarAgendamento'));
                             modal.show();
 
                             document.getElementById("btn-close-modal").addEventListener("click", function() {
-                                window.location.href = "/cadastrar-cliente";
+                                window.location.href = "/cadastrar-agendamento";
                             });
 
                             modal._element.addEventListener("hidden.bs.modal", function () {
-                                window.location.href = "/cadastrar-cliente";
+                                window.location.href = "/cadastrar-agendamento";
                             });
                         });
 
